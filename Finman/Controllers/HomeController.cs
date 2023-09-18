@@ -15,7 +15,7 @@ namespace Finman.Controllers
             return View();
         }
 
-        public ActionResult InvestmentPlansSuggested()
+        public ActionResult InvestmentForm()
         {
             ViewBag.Message = "Your Suggeseted Plan.";
             return View();

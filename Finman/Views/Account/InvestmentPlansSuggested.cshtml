@@ -6,7 +6,7 @@
 
 <h2>InvestmentPlansSuggested</h2>
 
-@using (Html.BeginForm()) 
+@*@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
@@ -124,8 +124,59 @@
             </div>
         </div>
     </div>
-}
+}*@
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+
+<div class="table table-bordered">
+    <table>
+        <tr>
+            <td>User ID</td>
+            <td>@Html.DisplayFor(model => model.userId)</td>
+        </tr>
+        <tr>
+            <td>Amount Deposited</td>
+            <td>@Html.DisplayFor(model => model.currentAmount)</td>
+        </tr>
+        <tr>
+            <td>Start Time</td>
+            <td>@Html.DisplayFor(model => model.startTime)</td>
+        </tr>
+        <tr>
+            <td>End Time</td>
+            <td>@Html.DisplayFor(model => model.endTime)</td>
+        </tr>
+        <tr>
+            <td>Risk Profile</td>
+            <td>@Html.DisplayFor(model => model.risk)</td>
+        </tr>
+        <tr>
+            <td>Expected Amount</td>
+            <td>@Html.DisplayFor(model => model.finalAmount)</td>
+        </tr>
+        <tr>
+            <td>Time invested</td>
+            <td>@Html.DisplayFor(model => model.investmentTime)</td>
+        </tr>
+        <tr>
+            <td>Monthly Expenses</td>
+            <td>@Html.DisplayFor(model => model.monthlyExpenses)</td>
+        </tr>
+        <tr>
+            <td>Return</td>
+            <td>@Html.DisplayFor(model => model.returnPercentage)</td>
+        </tr>
+        <tr>
+            <td>FD Return</td>
+            <td>@Html.DisplayFor(model => model.fd)</td>
+        </tr>
+        <tr>
+            <td>Mutual Fund Return</td>
+            <td>@Html.DisplayFor(model => model.mf)</td>
+        </tr>
+        <tr>
+            <td>Equity Return</td>
+            <td>@Html.DisplayFor(model => model.equity)</td>
+        </tr>
+    </table>
 </div>
+
