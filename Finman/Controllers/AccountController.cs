@@ -117,6 +117,7 @@ namespace Finman.Controllers
             planDetails.risk = risk;
             planDetails.finalAmount = (int)FV;
             planDetails.investmentTime = totalMonth;
+            planDetails.monthlyExpenses = (int)mpmt;
             planDetails.inflation = (int)(inflation * 100);
             planDetails.returnPercentage = (int)(adj * 100);
 
