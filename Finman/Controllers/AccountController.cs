@@ -123,20 +123,23 @@ namespace Finman.Controllers
             Debug.WriteLine(planDetails.currentAmount + " " + planDetails.startTime + " " + planDetails.endTime + " " + 
                 planDetails.risk + " " + planDetails.finalAmount + " " + planDetails.investmentTime + " " + planDetails.inflation + " " + planDetails.returnPercentage);
 
+
+            entity.investmentPlansSuggesteds.Add(planDetails);
+            entity.SaveChanges();
             return RedirectToAction("InvestmentPlansSuggested", "Account");
             /*return View(planDetails);*/
 
         }
 
 
-        [HttpPost]
+       /* [HttpPost]
         public ActionResult InvestmentPlansSuggested(investmentPlansSuggested investdata)
         {
             entity.investmentPlansSuggesteds.Add(investdata);
-            /*Debug.WriteLine(userinfo.FirstName + userinfo.Id + userinfo.LastName + userinfo.Email + userinfo.Password);*/
+            *//*Debug.WriteLine(userinfo.FirstName + userinfo.Id + userinfo.LastName + userinfo.Email + userinfo.Password);*//*
             entity.SaveChanges();
             return RedirectToAction("Plans");
-        }
+        }*/
 
 
         [HttpPost]
