@@ -9,16 +9,26 @@ namespace Finman.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        public ActionResult Plans()
+        {
+            ViewBag.Message = "Your Plans page.";
+            return View();
+        }
+
+        public ActionResult InvestmentPlansSuggested()
+        {
+            ViewBag.Message = "Your Suggeseted Plan.";
+            return View();
+        }
+
+
         [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Plans()
-        {
-            return View();
-        }
+        
 
         [AllowAnonymous]
         public ActionResult Contact()
@@ -27,5 +37,7 @@ namespace Finman.Controllers
 
             return View();
         }
+
+        
     }
 }

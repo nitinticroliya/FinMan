@@ -6,6 +6,7 @@ using System.Web.Security;
 using Finman.Models;
 using System.Linq;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace Finman.Controllers
 {
@@ -44,64 +45,79 @@ namespace Finman.Controllers
             int monthsApart = 12 * (startDate.Year - endDate.Year) + startDate.Month - endDate.Month;
             return Math.Abs(monthsApart);
         }
-        /*
-                [HttpPost]
-                public ActionResult InvestmentInput(InvestmentForm investmentForm)
-                {
-                    Debug.WriteLine(investmentForm.Amount);
-                    Debug.WriteLine(investmentForm.Datetime.ToString().Substring(0,10));
 
-                    int currentAmountt = investmentForm.Amount;
+        [HttpPost]
+        public ActionResult InvestmentPlansSuggested(InvestmentForm investmentForm)
+        {
+            Debug.WriteLine(investmentForm.Amount);
+            Debug.WriteLine(investmentForm.Datetime.ToString().Substring(0, 10));
+
+            int currentAmountt = investmentForm.Amount;
 
 
-                    int startdate = Convert.ToInt32(DateTime.Now.Day.ToString());
-                    int startMonth = Convert.ToInt32(DateTime.Now.Month.ToString());
-                    int startYear = Convert.ToInt32(DateTime.Now.Year.ToString());
+            int startdate = Convert.ToInt32(DateTime.Now.Day.ToString());
+            int startMonth = Convert.ToInt32(DateTime.Now.Month.ToString());
+            int startYear = Convert.ToInt32(DateTime.Now.Year.ToString());
 
-                    string[] datetime = investmentForm.Datetime.ToString().Substring(0,10).Split('-');
-                    int endDate = Convert.ToInt32(datetime[2]);
-                    int endMonth = Convert.ToInt32(datetime[1]);
-                    int endYear = Convert.ToInt32(datetime[0]);
-                    Console.WriteLine(endDate + "  " + endMonth + " " + endYear);
+            string[] datetime = investmentForm.Datetime.ToString().Substring(0, 10).Split('-');
+            int endDate = Convert.ToInt32(datetime[2]);
+            int endMonth = Convert.ToInt32(datetime[1]);
+            int endYear = Convert.ToInt32(datetime[0]);
+            Console.WriteLine(endDate + "  " + endMonth + " " + endYear);
 
-                    DateTime startDateTime = new DateTime(startYear, startMonth, startdate);
-                    DateTime endDateTime = new DateTime(endYear, endMonth, endDate);
+            DateTime startDateTime = new DateTime(startYear, startMonth, startdate);
+            DateTime endDateTime = new DateTime(endYear, endMonth, endDate);
 
-                    int totalMonth = GetMonthDifference(startDateTime, endDateTime);
+            int totalMonth = GetMonthDifference(startDateTime, endDateTime);
 
-                    int years = totalMonth / 12;
-        *//*
-                    RiskAmount riskCal = GetRiskAmount(user);*//*
-                    string risk = "lowrisk";
+            int years = totalMonth / 12;
 
-                    *//*AdminData adminData = GetAdminData();
+            /*RiskAmount riskCal = GetRiskAmount(user);*/
+            string risk = "lowrisk";
 
-                    double inflation = adminData.Inflation / (100 * 1.0);
-                    double lowriskreturn = adminData.LowRisk / (100 * 1.0);
-                    double midriskreturn = adminData.MidRisk / (100 * 1.0);
-                    double highriskreturn = adminData.HighRisk / (100 * 1.0);*//*
-                    double inflation = 0.06;
-                    double lowriskreturn = 0.08;
-                    double midriskreturn = 0.12;
-                    double highriskreturn = 0.18;
+           /* AdminData adminData = GetAdminData();*/
 
-                    Console.WriteLine(inflation + "  " + lowriskreturn + "  " + midriskreturn + "  " + highriskreturn + "  lll ");
+            double inflation = 0.06;
+            double lowriskreturn = 0.08;
+            double midriskreturn = 0.12;
+            double highriskreturn = 0.18;
 
-                    Console.WriteLine(inflation + " inflatoin " + lowriskreturn + "  " + midriskreturn + " sd " + highriskreturn);
-                   *//* Console.WriteLine(adminData.Inflation + " inflatoin " + adminData.LowRisk + "  " + adminData.MidRisk + " sd " + adminData.HighRisk);*//*
+            /*double inflation = adminData.Inflation / (100 * 1.0);
+            double lowriskreturn = adminData.LowRisk / (100 * 1.0);
+            double midriskreturn = adminData.MidRisk / (100 * 1.0);
+            double highriskreturn = adminData.HighRisk / (100 * 1.0);*/
+           
 
-                    double ret = (risk == "LowRisk" ? lowriskreturn : (risk == "MidRisk" ? midriskreturn : highriskreturn));
+            Console.WriteLine(inflation + "  " + lowriskreturn + "  " + midriskreturn + "  " + highriskreturn + "  lll ");
 
-                    double adj = ((1 + ret) / ((1 + inflation)) * 1.0) - 1;
+            Console.WriteLine(inflation + " inflatoin " + lowriskreturn + "  " + midriskreturn + " sd " + highriskreturn);
+           /* Console.WriteLine(adminData.Inflation + " inflatoin " + adminData.LowRisk + "  " + adminData.MidRisk + " sd " + adminData.HighRisk);
+*/
+            double ret = (risk == "LowRisk" ? lowriskreturn : (risk == "MidRisk" ? midriskreturn : highriskreturn));
 
-                    Console.WriteLine(adj);
-                    double FV = currentAmountt * (Math.Pow((1 + adj), years));
-                    double ypmt = FV / (((Math.Pow((1 + adj), years) - 1) / adj) * (1 + adj));
-                    double mpmt = ypmt / 12;
+            double adj = ((1 + ret) / ((1 + inflation)) * 1.0) - 1;
 
-                    investmentPlansSuggested planDetails = new investmentPlansSuggested();
-                    *//*planDetails.Id = ;*//*
-                }*/
+            Console.WriteLine(adj);
+            double FV = currentAmountt * (Math.Pow((1 + adj), years));
+            double ypmt = FV / (((Math.Pow((1 + adj), years) - 1) / adj) * (1 + adj));
+            double mpmt = ypmt / 12;
+
+            investmentPlansSuggested planDetails = new investmentPlansSuggested();
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+            planDetails.userId = Convert.ToInt32(ticket.UserData);
+            planDetails.currentAmount = investmentForm.Amount;
+            planDetails.startTime = startDateTime.ToString();
+            planDetails.endTime = endDateTime.ToString();
+            planDetails.risk = risk;
+            planDetails.finalAmount = (int)FV;
+            planDetails.investmentTime = totalMonth;
+            planDetails.inflation = (int)(inflation * 100);
+            planDetails.returnPercentage = (int)(adj * 100);
+
+            return View(planDetails);
+
+        }
 
 
         [HttpPost]
