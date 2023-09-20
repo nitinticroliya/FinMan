@@ -1,130 +1,13 @@
-﻿@model List<Finman.Models.investmentPlansSuggested>
-
+﻿@*@model List<Finman.Models.investmentPlansSuggested>
+*@
 @{
     ViewBag.Title = "InvestmentPlansSuggested";
+    var dataI = ViewData["InvestmentData"] as List<Finman.Models.investmentPlansSuggested>;
+    var dataR = ViewData["RetirementmentData"] as List<Finman.Models.retirementPlansSuggested>;
+
 }
 
 <h2>InvestmentPlansSuggested</h2>
-
-@*@using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>investmentPlansSuggested</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.userId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.userId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.userId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.currentAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.currentAmount, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.currentAmount, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.startTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.startTime, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.startTime, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.endTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.endTime, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.endTime, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.risk, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.risk, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.risk, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.finalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.finalAmount, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.finalAmount, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.investmentTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.investmentTime, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.investmentTime, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.monthlyExpenses, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.monthlyExpenses, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.monthlyExpenses, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.inflation, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.inflation, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.inflation, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.returnPercentage, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.returnPercentage, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.returnPercentage, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.fd, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.fd, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.fd, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.mf, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.mf, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.mf, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.equity, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.equity, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.equity, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }*@
 
 
 <form>
@@ -140,32 +23,19 @@
             </tr>
         </thead>
         <tbody>
-            @if(Model != null && Model.Any())
-            {
-                foreach(var investment in Model)
-                {
-                    <tr>
-                        <td>@investment.Id</td>
-                        <td>@investment.currentAmount</td>
-                        <td>@investment.startTime</td>
-                        <td>@investment.endTime</td>
-                        <td>
-                            <div class="btn-group btn-group-sm">
-                                <a asp-controller="AccountController" asp-action="Edit" asp-route-id="@investment.Id" class="btn btn-primary">Edit</a>
-                            </div>
-                            <div class="btn-group btn-group-sm">
-                                <a asp-controller="AccountController" asp-action="Delete" asp-route-id="@investment.Id" class="btn btn-primary">Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            }
-            else
+            @foreach (Finman.Models.investmentPlansSuggested investment in dataI)
             {
                 <tr>
-                    <td colspan="5">
-                        <div>
-                            No Investments at this moment.
+                    <td>@investment.Id</td>
+                    <td>@investment.currentAmount</td>
+                    <td>@investment.startTime</td>
+                    <td>@investment.endTime</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <a asp-controller="AccountController" asp-action="Edit" asp-route-id="@investment.Id" class="btn btn-primary">Edit</a>
+                        </div>
+                        <div class="btn-group btn-group-sm">
+                            <a asp-controller="AccountController" asp-action="Delete" asp-route-id="@investment.Id" class="btn btn-primary">Delete</a>
                         </div>
                     </td>
                 </tr>
@@ -174,57 +44,38 @@
     </table>
 </form>
 
-@*<div class="table table-bordered">
-    <table>
-        <tr>
-            <td>User ID</td>
-            <td>@Html.DisplayFor(model => model.userId)</td>
-        </tr>
-        <tr>
-            <td>Amount Deposited</td>
-            <td>@Html.DisplayFor(model => model.currentAmount)</td>
-        </tr>
-        <tr>
-            <td>Start Time</td>
-            <td>@Html.DisplayFor(model => model.startTime)</td>
-        </tr>
-        <tr>
-            <td>End Time</td>
-            <td>@Html.DisplayFor(model => model.endTime)</td>
-        </tr>
-        <tr>
-            <td>Risk Profile</td>
-            <td>@Html.DisplayFor(model => model.risk)</td>
-        </tr>
-        <tr>
-            <td>Expected Amount</td>
-            <td>@Html.DisplayFor(model => model.finalAmount)</td>
-        </tr>
-        <tr>
-            <td>Time invested</td>
-            <td>@Html.DisplayFor(model => model.investmentTime)</td>
-        </tr>
-        <tr>
-            <td>Monthly Expenses</td>
-            <td>@Html.DisplayFor(model => model.monthlyExpenses)</td>
-        </tr>
-        <tr>
-            <td>Return</td>
-            <td>@Html.DisplayFor(model => model.returnPercentage)</td>
-        </tr>
-        <tr>
-            <td>FD Return</td>
-            <td>@Html.DisplayFor(model => model.fd)</td>
-        </tr>
-        <tr>
-            <td>Mutual Fund Return</td>
-            <td>@Html.DisplayFor(model => model.mf)</td>
-        </tr>
-        <tr>
-            <td>Equity Return</td>
-            <td>@Html.DisplayFor(model => model.equity)</td>
-        </tr>
-    </table>
-</div>
 
-*@
+
+<form>
+    <button asp-action="RetirementForm" asp-controller="AccountController" class="btn btn-primary">Add Retirement</button>
+    <table class="table table-responsive table-hover">
+        <thead>
+            <tr class="table-active">
+                <th>Investment Goal</th>
+                <th>Amount Deposited</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Finman.Models.retirementPlansSuggested investment in dataR)
+            {
+                <tr>
+                    <td>@investment.Id</td>
+                    <td>@investment.MonthlyExpenses</td>
+                    <td>@investment.startTime</td>
+                    <td>@investment.endTime</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <a asp-controller="AccountController" asp-action="Edit" asp-route-id="@investment.Id" class="btn btn-primary">Edit</a>
+                        </div>
+                        <div class="btn-group btn-group-sm">
+                            <a asp-controller="AccountController" asp-action="Delete" asp-route-id="@investment.Id" class="btn btn-primary">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

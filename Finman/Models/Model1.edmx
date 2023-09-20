@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FinManModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FinManModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdminLogin">
           <Key>
             <PropertyRef Name="AdminEmail" />
@@ -23,31 +23,58 @@
           <Property Name="endTime" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="risk" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="finalAmount" Type="int" Nullable="false" />
-          <Property Name="investmentTime" Type="int" Nullable="false" />
-          <Property Name="monthlyExpenses" Type="int" Nullable="false" />
-          <Property Name="inflation" Type="int" Nullable="false" />
-          <Property Name="returnPercentage" Type="int" Nullable="false" />
-          <Property Name="fd" Type="int" Nullable="false" />
-          <Property Name="mf" Type="int" Nullable="false" />
-          <Property Name="equity" Type="int" Nullable="false" />
+          <Property Name="investmentTime" Type="int" />
+          <Property Name="monthlyExpenses" Type="int" />
+          <Property Name="inflation" Type="int" />
+          <Property Name="returnPercentage" Type="int" />
+          <Property Name="fd" Type="int" />
+          <Property Name="mf" Type="int" />
+          <Property Name="equity" Type="int" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="profilesData">
+          <Key>
+            <PropertyRef Name="profiles" />
+          </Key>
+          <Property Name="profiles" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="retirementPlansSuggested">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="MonthlyExpenses" Type="int" Nullable="false" />
+          <Property Name="startTime" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="endTime" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="risk" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="finalAmount" Type="int" Nullable="false" />
+          <Property Name="InvestmentTimeLeft" Type="int" Nullable="false" />
+          <Property Name="MonthlyInvestment" Type="int" Nullable="false" />
+          <Property Name="Inflation" Type="int" Nullable="false" />
+          <Property Name="ReturnPercentage" Type="int" Nullable="false" />
+          <Property Name="Fd" Type="int" />
+          <Property Name="Mf" Type="int" />
+          <Property Name="Equity" Type="int" />
+        </EntityType>
         <EntityContainer Name="FinManModelStoreContainer">
           <EntitySet Name="AdminLogin" EntityType="Self.AdminLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="investmentPlansSuggested" EntityType="Self.investmentPlansSuggested" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="profilesData" EntityType="Self.profilesData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="retirementPlansSuggested" EntityType="Self.retirementPlansSuggested" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FinManModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -69,13 +96,13 @@
           <Property Name="endTime" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="risk" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="finalAmount" Type="Int32" Nullable="false" />
-          <Property Name="investmentTime" Type="Int32" Nullable="false" />
-          <Property Name="monthlyExpenses" Type="Int32" Nullable="false" />
-          <Property Name="inflation" Type="Int32" Nullable="false" />
-          <Property Name="returnPercentage" Type="Int32" Nullable="false" />
-          <Property Name="fd" Type="Int32" Nullable="false" />
-          <Property Name="mf" Type="Int32" Nullable="false" />
-          <Property Name="equity" Type="Int32" Nullable="false" />
+          <Property Name="investmentTime" Type="Int32" />
+          <Property Name="monthlyExpenses" Type="Int32" />
+          <Property Name="inflation" Type="Int32" />
+          <Property Name="returnPercentage" Type="Int32" />
+          <Property Name="fd" Type="Int32" />
+          <Property Name="mf" Type="Int32" />
+          <Property Name="equity" Type="Int32" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -91,7 +118,35 @@
           <EntitySet Name="AdminLogins" EntityType="Self.AdminLogin" />
           <EntitySet Name="investmentPlansSuggesteds" EntityType="Self.investmentPlansSuggested" />
           <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="profilesDatas" EntityType="FinManModel.profilesData" />
+          <EntitySet Name="retirementPlansSuggesteds" EntityType="FinManModel.retirementPlansSuggested" />
         </EntityContainer>
+        <EntityType Name="profilesData">
+          <Key>
+            <PropertyRef Name="profiles" />
+          </Key>
+          <Property Name="profiles" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="retirementPlansSuggested">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="MonthlyExpenses" Type="Int32" Nullable="false" />
+          <Property Name="startTime" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="endTime" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="risk" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="finalAmount" Type="Int32" Nullable="false" />
+          <Property Name="InvestmentTimeLeft" Type="Int32" Nullable="false" />
+          <Property Name="MonthlyInvestment" Type="Int32" Nullable="false" />
+          <Property Name="Inflation" Type="Int32" Nullable="false" />
+          <Property Name="ReturnPercentage" Type="Int32" Nullable="false" />
+          <Property Name="Fd" Type="Int32" />
+          <Property Name="Mf" Type="Int32" />
+          <Property Name="Equity" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -134,6 +189,34 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profilesDatas">
+            <EntityTypeMapping TypeName="FinManModel.profilesData">
+              <MappingFragment StoreEntitySet="profilesData">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="profiles" ColumnName="profiles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="retirementPlansSuggesteds">
+            <EntityTypeMapping TypeName="FinManModel.retirementPlansSuggested">
+              <MappingFragment StoreEntitySet="retirementPlansSuggested">
+                <ScalarProperty Name="Equity" ColumnName="Equity" />
+                <ScalarProperty Name="Mf" ColumnName="Mf" />
+                <ScalarProperty Name="Fd" ColumnName="Fd" />
+                <ScalarProperty Name="ReturnPercentage" ColumnName="ReturnPercentage" />
+                <ScalarProperty Name="Inflation" ColumnName="Inflation" />
+                <ScalarProperty Name="MonthlyInvestment" ColumnName="MonthlyInvestment" />
+                <ScalarProperty Name="InvestmentTimeLeft" ColumnName="InvestmentTimeLeft" />
+                <ScalarProperty Name="finalAmount" ColumnName="finalAmount" />
+                <ScalarProperty Name="risk" ColumnName="risk" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="MonthlyExpenses" ColumnName="MonthlyExpenses" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

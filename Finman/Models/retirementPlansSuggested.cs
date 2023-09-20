@@ -12,21 +12,21 @@ namespace Finman.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class investmentPlansSuggested
+    public partial class retirementPlansSuggested
     {
         public int Id { get; set; }
-        public int userId { get; set; }
-        public int currentAmount { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public int MonthlyExpenses { get; set; }
         public string startTime { get; set; }
         public string endTime { get; set; }
         public string risk { get; set; }
         public int finalAmount { get; set; }
-        public Nullable<int> investmentTime { get; set; }
-        public Nullable<int> monthlyExpenses { get; set; }
-        public Nullable<int> inflation { get; set; }
-        public Nullable<int> returnPercentage { get; set; }
-        public Nullable<int> fd { get; set; }
-        public Nullable<int> mf { get; set; }
-        public Nullable<int> equity { get; set; }
+        public int InvestmentTimeLeft { get; set; }
+        public int MonthlyInvestment { get; set; }
+        public int Inflation { get; set; }
+        public int ReturnPercentage { get; set; }
+        public Nullable<int> Fd { get; set; }
+        public Nullable<int> Mf { get; set; }
+        public Nullable<int> Equity { get; set; }
     }
 }

@@ -160,6 +160,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\profilesData.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RetirementForm.cs" />
+    <Compile Include="Models\retirementPlansSuggested.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -232,11 +239,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Models\Account\InvestmentForm.cshtml" />
-    <Content Include="Models\Account\IvestmentPlanSuggested.cshtml" />
-    <Content Include="Models\Account\Login.cshtml" />
-    <Content Include="Models\Account\Plans.cshtml" />
-    <Content Include="Models\Account\Signup.cshtml" />
     <Content Include="Views\Admin\AdminLogin.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -244,6 +246,7 @@
     <Content Include="Views\Account\Plans.cshtml" />
     <Content Include="Views\Account\InvestmentForm.cshtml" />
     <Content Include="Views\Account\InvestmentPlansSuggested.cshtml" />
+    <Content Include="Views\Account\RetirementForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

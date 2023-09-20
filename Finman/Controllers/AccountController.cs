@@ -35,11 +35,16 @@ namespace Finman.Controllers
             return View();
         }
 
-        public ActionResult InvestmentPlansSuggested()
+        public ActionResult RetirementForm()
         {
-
             return View();
         }
+
+        /*  public ActionResult InvestmentPlansSuggested()
+          {
+
+              return View();
+          }*/
 
         public int GetMonthDifference(DateTime startDate, DateTime endDate)
         {
@@ -47,6 +52,7 @@ namespace Finman.Controllers
             return Math.Abs(monthsApart);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult InvestmentForm(InvestmentForm investmentForm)
         {
@@ -76,7 +82,7 @@ namespace Finman.Controllers
             /*RiskAmount riskCal = GetRiskAmount(user);*/
             string risk = "lowrisk";
 
-           /* AdminData adminData = GetAdminData();*/
+            /* AdminData adminData = GetAdminData();*/
 
             double inflation = 0.06;
             double lowriskreturn = 0.08;
@@ -87,13 +93,13 @@ namespace Finman.Controllers
             double lowriskreturn = adminData.LowRisk / (100 * 1.0);
             double midriskreturn = adminData.MidRisk / (100 * 1.0);
             double highriskreturn = adminData.HighRisk / (100 * 1.0);*/
-           
+
 
             Debug.WriteLine(inflation + "  " + lowriskreturn + "  " + midriskreturn + "  " + highriskreturn + "  lll ");
 
             Debug.WriteLine(inflation + " inflatoin " + lowriskreturn + "  " + midriskreturn + " sd " + highriskreturn);
-           /* Console.WriteLine(adminData.Inflation + " inflatoin " + adminData.LowRisk + "  " + adminData.MidRisk + " sd " + adminData.HighRisk);
-*/
+            /* Console.WriteLine(adminData.Inflation + " inflatoin " + adminData.LowRisk + "  " + adminData.MidRisk + " sd " + adminData.HighRisk);
+ */
             double ret = (risk == "LowRisk" ? lowriskreturn : (risk == "MidRisk" ? midriskreturn : highriskreturn));
 
             double adj = ((1 + ret) / ((1 + inflation)) * 1.0) - 1;
@@ -107,10 +113,13 @@ namespace Finman.Controllers
             Debug.WriteLine(mpmt);
 
             investmentPlansSuggested planDetails = new investmentPlansSuggested();
-            /*HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             Debug.WriteLine(authCookie);
-            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);*/
-            /*planDetails.userId = Convert.ToInt32(ticket.UserData);*/
+            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+            Debug.WriteLine(ticket + " break");
+            Debug.WriteLine(ticket.UserData);
+            string userData = ticket.UserData;
+            /*planDetails.userId = Convert.ToInt32(userData);*/
             planDetails.currentAmount = investmentForm.Amount;
             planDetails.startTime = startDateTime.ToString();
             planDetails.endTime = endDateTime.ToString();
@@ -121,8 +130,8 @@ namespace Finman.Controllers
             planDetails.inflation = (int)(inflation * 100);
             planDetails.returnPercentage = (int)(adj * 100);
 
-            Debug.WriteLine(planDetails.currentAmount + " " + planDetails.startTime + " " + planDetails.endTime + " " + 
-                planDetails.risk + " " + planDetails.finalAmount + " " + planDetails.investmentTime + " " + planDetails.inflation + " " + planDetails.returnPercentage);
+            Debug.WriteLine(planDetails.currentAmount + " " + planDetails.startTime + " " + planDetails.endTime + " " +
+                planDetails.risk + " " + planDetails.finalAmount + " " + planDetails.investmentTime + " " + planDetails.monthlyExpenses + " " + planDetails.inflation + " " + planDetails.returnPercentage);
 
 
             entity.investmentPlansSuggesteds.Add(planDetails);
@@ -133,14 +142,130 @@ namespace Finman.Controllers
         }
 
 
-       /* [HttpPost]
-        public ActionResult InvestmentPlansSuggested(investmentPlansSuggested investdata)
+        [HttpPost]
+        public ActionResult RetirementForm(RetirementForm retirementForm)
         {
-            entity.investmentPlansSuggesteds.Add(investdata);
-            *//*Debug.WriteLine(userinfo.FirstName + userinfo.Id + userinfo.LastName + userinfo.Email + userinfo.Password);*//*
+            Debug.WriteLine(retirementForm.RetirementTime.ToString().Substring(0, 10));
+            Debug.WriteLine(retirementForm.MonthlyExpenses);
+            Debug.WriteLine(retirementForm.ExpectedPeriod);
+
+            int startdate = Convert.ToInt32(DateTime.Now.Day.ToString());
+            int startMonth = Convert.ToInt32(DateTime.Now.Month.ToString());
+            int startYear = Convert.ToInt32(DateTime.Now.Year.ToString());
+            string mn = startMonth < 10 ? "0" + startMonth : startMonth.ToString();
+            string dy = startdate < 10 ? "0" + startdate : startdate.ToString();
+            string startDT = startYear + "-" + mn + "-" + dy;
+
+            string[] datetime = retirementForm.RetirementTime.ToString().Substring(0, 10).Split('-');
+            int endDate = Convert.ToInt32(datetime[0]);
+            int endMonth = Convert.ToInt32(datetime[1]);
+            int endYear = Convert.ToInt32(datetime[2]);
+
+            Console.WriteLine("jemllleoeeoe" + retirementForm.MonthlyExpenses);
+            DateTime startDateTime = new DateTime(startYear, startMonth, startdate);
+            DateTime endDateTime = new DateTime(endYear, endMonth, endDate);
+
+            int totalMonth = GetMonthDifference(startDateTime, endDateTime);
+            // int startYear = Convert.ToInt32(DateTime.Now.Year.ToString());
+
+            int retirementYear = endYear - startYear;
+            int retirementPeriod = retirementForm.ExpectedPeriod;
+
+            /*RiskAmount riskCal = GetRiskAmount(user);*/
+            string risk = "lowrisk";
+
+
+            double inflation = 0.06;
+            double lowriskreturn = 0.08;
+            double midriskreturn = 0.12;
+            double highriskreturn = 0.18;
+            //  double inflation = 0.06;
+
+            //double ret = (risk=="LowRisk" ? 0.08 : (risk=="MidRisk" ? 0.11 : 0.14));
+
+            /*AdminData adminData = GetAdminData();
+
+
+            double inflation = adminData.Inflation / (100 * 1.0);
+            double lowriskreturn = adminData.LowRisk / (100 * 1.0);
+            double midriskreturn = adminData.MidRisk / (100 * 1.0);
+            double highriskreturn = adminData.HighRisk / (100 * 1.0);*/
+
+
+            double ret = (risk == "LowRisk" ? lowriskreturn : (risk == "MidRisk" ? midriskreturn : highriskreturn));
+
+            Console.WriteLine(inflation + "  " + lowriskreturn + "  " + midriskreturn + "  " + highriskreturn + "  lll ");
+
+            double adj = ((1 + ret) / (1 + inflation) * 1.0) - 1;
+            Debug.WriteLine(adj);
+
+            double FV = retirementForm.MonthlyExpenses * (Math.Pow((1 + inflation), retirementYear));
+            Debug.WriteLine(FV);
+            double earexp = FV * 12;
+            Debug.WriteLine(earexp);
+
+            double retcorp = earexp * ((1 - (1 / ((Math.Pow((1 + adj), (retirementPeriod - 1)))))) / adj) + earexp;
+            Debug.WriteLine(retcorp);
+            double ypmt = retcorp / (((Math.Pow((1 + adj), retirementYear) - 1) / adj) * (1 + adj));
+            Debug.WriteLine(ypmt);
+            double mpmt = ypmt / 12;
+            Debug.WriteLine(mpmt);
+
+            inflation = inflation * 100;
+            Debug.WriteLine(inflation);
+            ret = ret * 100;
+            Debug.WriteLine(ret);
+            // Debug.WriteLine(ypmt + "  " + FV + " " + retcorp + " " + ypmt + " " + inflation + " " + ret);
+
+
+            retirementPlansSuggested retirementDetails = new retirementPlansSuggested();
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            Debug.WriteLine(authCookie);
+            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+            Debug.WriteLine(ticket + " break");
+            Debug.WriteLine(ticket.UserData);
+            string userData = ticket.UserData;
+            /*planDetails.userId = Convert.ToInt32(userData);*/
+            retirementDetails.MonthlyExpenses = retirementForm.MonthlyExpenses;
+            retirementDetails.startTime = startDateTime.ToString();
+            retirementDetails.endTime = endDateTime.ToString();
+            retirementDetails.risk = risk;
+            retirementDetails.finalAmount = (int)FV;
+            retirementDetails.InvestmentTimeLeft = totalMonth;
+            retirementDetails.MonthlyInvestment = (int)mpmt;
+            retirementDetails.Inflation = (int)(inflation * 100);
+            retirementDetails.ReturnPercentage = (int)(adj * 100);
+
+            Debug.WriteLine(retirementDetails.MonthlyExpenses + " " + retirementDetails.startTime + " " + retirementDetails.endTime + " " +
+                retirementDetails.risk + " " + retirementDetails.finalAmount + " " + retirementDetails.InvestmentTimeLeft + " " + retirementDetails.MonthlyInvestment + " " + retirementDetails.Inflation + " " + retirementDetails.ReturnPercentage);
+
+
+            entity.retirementPlansSuggesteds.Add(retirementDetails);
             entity.SaveChanges();
-            return RedirectToAction("Plans");
-        }*/
+            return RedirectToAction("InvestmentPlansSuggested", "Account");
+        }
+
+        // [HttpGet]
+        public ActionResult InvestmentPlansSuggested()
+        {
+            List<investmentPlansSuggested> investmentData = entity.investmentPlansSuggesteds.ToList();
+            ViewData["InvestmentData"] = investmentData;
+
+           List<retirementPlansSuggested> retirementData = entity.retirementPlansSuggesteds.ToList();
+            ViewData["RetirementmentData"] = retirementData;
+
+            return View();
+
+        }
+
+        /* [HttpPost]
+         public ActionResult InvestmentPlansSuggested(investmentPlansSuggested investdata)
+         {
+             entity.investmentPlansSuggesteds.Add(investdata);
+             *//*Debug.WriteLine(userinfo.FirstName + userinfo.Id + userinfo.LastName + userinfo.Email + userinfo.Password);*//*
+             entity.SaveChanges();
+             return RedirectToAction("Plans");
+         }*/
 
 
         [HttpPost]
