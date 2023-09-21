@@ -4,15 +4,15 @@
     ViewBag.Title = "InvestmentPlansSuggested";
     var dataI = ViewData["InvestmentData"] as List<Finman.Models.investmentPlansSuggested>;
     var dataR = ViewData["RetirementmentData"] as List<Finman.Models.retirementPlansSuggested>;
-
 }
 
 <h2>InvestmentPlansSuggested</h2>
 
 
 <form>
-    <button asp-action="InvestmentForm" asp-controller="AccountController" class="btn btn-primary">Add Investement</button>
-    <table class="table table-responsive table-hover">
+    @*<button asp-action="InvestmentForm" asp-controller="AccountController" class="btn btn-primary">Add Investement</button>
+    <br/>*@
+    <table class="table table-responsive table-hover" id="InvestmentDetails">
         <thead>
             <tr class="table-active">
                 <th>Investment Goal</th>
@@ -22,10 +22,10 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="InvestmentDetails">
             @foreach (Finman.Models.investmentPlansSuggested investment in dataI)
             {
-                <tr>
+                <tr class="header" id="Inv_@investment.Id" onclick="func1(this,@investment.Id)">
                     <td>@investment.Id</td>
                     <td>@investment.currentAmount</td>
                     <td>@investment.startTime</td>
@@ -39,15 +39,41 @@
                         </div>
                     </td>
                 </tr>
+                <tr class="" id="InvDetailsA_@investment.Id">
+                    <td>Risk Profile</td>
+                    <td>@investment.risk</td>
+                    <td>Final Amount</td>
+                    <td>@investment.finalAmount</td>
+                    <td>Time Invested</td>
+                    <td>@investment.investmentTime</td>
+                </tr>
+                <tr class="" id="InvDetailsB_@investment.Id">
+                    <td>Monthly Expenses</td>
+                    <td>@investment.monthlyExpenses</td>
+                    <td>Inflation</td>
+                    <td>@investment.inflation</td>
+                    <td>Return Percentage</td>
+                    <td>@investment.returnPercentage</td>
+                </tr>
+                <tr class="" id="InvDetailsC_@investment.Id">
+                    <td>FD Return</td>
+                    <td>@investment.fd</td>
+                    <td>Mutual Fund Return</td>
+                    <td>@investment.mf</td>
+                    <td>Equity Return</td>
+                    <td>@investment.equity</td>
+                </tr>
             }
         </tbody>
     </table>
 </form>
 
-
+<br />
+<br /><br />
 
 <form>
-    <button asp-action="RetirementForm" asp-controller="AccountController" class="btn btn-primary">Add Retirement</button>
+    @*<button asp-action="RetirementForm" asp-controller="AccountController" class="btn btn-primary">Add Retirement</button>
+    <br />*@
     <table class="table table-responsive table-hover">
         <thead>
             <tr class="table-active">
@@ -58,10 +84,10 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="RetirementDetails">
             @foreach (Finman.Models.retirementPlansSuggested investment in dataR)
             {
-                <tr>
+                <tr class="header" id="Ret_@investment.Id" onclick="func2(this,@investment.Id)">
                     <td>@investment.Id</td>
                     <td>@investment.MonthlyExpenses</td>
                     <td>@investment.startTime</td>
@@ -75,7 +101,46 @@
                         </div>
                     </td>
                 </tr>
+                <tr class="" id="RetDetailsA_@investment.Id">
+                    <td>Risk Profile</td>       
+                    <td>@investment.risk</td>
+                    <td>Final Amount</td>
+                    <td>@investment.finalAmount</td>
+                    <td>Time Invested</td>
+                    <td>@investment.InvestmentTimeLeft</td>
+                </tr>
+                <tr class="" id="RetDetailsB_@investment.Id">
+                    <td>Monthly Investment</td>
+                    <td>@investment.MonthlyInvestment</td>
+                    <td>Inflation</td>
+                    <td>@investment.Inflation</td>
+                    <td>Return Percentage</td>
+                    <td>@investment.ReturnPercentage</td>
+                </tr>
+                <tr class="" id="RetDetailsC_@investment.Id">
+                    <td>FD Return</td>
+                    <td>@investment.Fd</td>
+                    <td>Mutual Fund Return</td>
+                    <td>@investment.Mf</td>
+                    <td>Equity Return</td>
+                    <td>@investment.Equity</td>
+                </tr>
             }
         </tbody>
     </table>
 </form>
+<script>  
+    var number = document.getElementById("RetirementDetails").rows.length / 4;
+    for (var i = 1; i <= number; i++) {
+        document.getElementById("RetDetailsA_" + i).style.display = "none";
+    }   
+    for (var i = 1; i <= number; i++) {
+        document.getElementById("RetDetailsB_" + i).style.display = "none";
+    }
+    for (var i = 1; i <= number; i++) {
+        document.getElementById("RetDetailsC_" + i).style.display = "none";
+    }
+
+    
+</script>
+<script src="~/Scripts/InvestmentPlansSuggested.js"></script>
