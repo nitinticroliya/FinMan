@@ -98,7 +98,32 @@ namespace fin.Controllers
 
         public ActionResult ModifyQuestions()
         {
+            List<Question> questions= entity.Questions.ToList();
+            ViewData["Question"] = questions;
 
+            return View();
+        }
+        public ActionResult AddQuestion()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddQuestion(Question question)
+        {
+            if (question.Id == 0)
+            {
+                entity.Questions.Add(question);
+                entity.SaveChanges();
+            }
+            else
+            {
+                entity.Entry(question).State = EntityState.Modified;
+                entity.SaveChanges();
+            }
+            return RedirectToAction("ModifyQuestions");
+        }
+        public ActionResult AddOption()
+        {
             return View();
         }
     }

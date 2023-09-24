@@ -1,8 +1,36 @@
-﻿
+﻿@model List<Finman.Models.Question>
 @{
     ViewBag.Title = "ModifyQuestions";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var ques = ViewData["Question"] as List<Finman.Models.Question>;
+
 }
 
 <h2>Modify Questions</h2>
+<br />
+<br />
+
+<a href="@Url.Action("AddQuestion")" class="btn btn-info">Add Question</a>
+<a href="@Url.Action("AddOption")" class="btn btn-info">Modify Option</a>
+
+<table class="table table-hover">
+    <tr>
+        <th>Question</th>
+        <th>No of Options</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var question in ques)
+    {
+        <tr>
+            <td>@question.QuestionName</td>
+
+            <td>@question.NoOfOptions</td>
+            <td>
+                <a href="@Url.Action("AddQuestion", new { question.Id, question.QuestionName, question.NoOfOptions})" class="btn btn-success">Edit</a>
+                <a href="@Url.Action("Delete", new {question.Id})" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
 

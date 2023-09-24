@@ -49,6 +49,24 @@
           <Property Name="value" Type="int" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="QuestionOptions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="QuestionId" Type="nchar" MaxLength="10" />
+          <Property Name="OptionId" Type="nchar" MaxLength="10" />
+          <Property Name="Option" Type="nchar" MaxLength="10" />
+          <Property Name="Weightage" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="QuestionName" Type="nchar" MaxLength="10" />
+          <Property Name="NoOfOptions" Type="nchar" MaxLength="1" />
+        </EntityType>
         <EntityType Name="retirementPlansSuggested">
           <Key>
             <PropertyRef Name="Id" />
@@ -73,6 +91,8 @@
           <EntitySet Name="investmentPlansSuggested" EntityType="Self.investmentPlansSuggested" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="profilesData" EntityType="Self.profilesData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionOptions" EntityType="Self.QuestionOptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="retirementPlansSuggested" EntityType="Self.retirementPlansSuggested" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -121,6 +141,8 @@
           <EntitySet Name="Logins" EntityType="Self.Login" />
           <EntitySet Name="retirementPlansSuggesteds" EntityType="FinManModel.retirementPlansSuggested" />
           <EntitySet Name="profilesDatas" EntityType="FinManModel.profilesData" />
+          <EntitySet Name="Questions" EntityType="FinManModel.Question" />
+          <EntitySet Name="QuestionOptions" EntityType="FinManModel.QuestionOption" />
         </EntityContainer>
         <EntityType Name="retirementPlansSuggested">
           <Key>
@@ -148,6 +170,24 @@
           <Property Name="profiles" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="value" Type="Int32" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="QuestionName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NoOfOptions" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="QuestionId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OptionId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Option" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Weightage" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -220,6 +260,26 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="value" ColumnName="value" />
                 <ScalarProperty Name="profiles" ColumnName="profiles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="FinManModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="NoOfOptions" ColumnName="NoOfOptions" />
+                <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionOptions">
+            <EntityTypeMapping TypeName="FinManModel.QuestionOption">
+              <MappingFragment StoreEntitySet="QuestionOptions">
+                <ScalarProperty Name="Weightage" ColumnName="Weightage" />
+                <ScalarProperty Name="Option" ColumnName="Option" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

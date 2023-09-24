@@ -3,14 +3,16 @@
 @{
     ViewBag.Title = "profilesData";
     Layout = "/Views/Shared/_LayoutAdmin.cshtml";
-
 }
 
 
 <h2>Profiles Data</h2>
+<br />
+<br />
 
 
 <a href="@Url.Action("AddProfilesData")" class="btn btn-info">Add Profile</a>
+<br />
 <table class="table table-hover">
     <tr>
         <th>Profiles</th>
@@ -22,7 +24,7 @@
     {
         <tr>
             <td>@profile.profiles</td>
-            `
+            
             <td>@profile.value</td>
             <td>
                 <a href="@Url.Action("AddProfilesData", new { profile.Id, profile.profiles, profile.value})" class="btn btn-success">Edit</a>

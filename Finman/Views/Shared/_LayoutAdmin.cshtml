@@ -41,13 +41,14 @@
                         if (isAdminLoggedIn)
                         {
                             <li>@Html.ActionLink(User.Identity.Name, "AdminHome", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("SignOut1", "AdminSignOut", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Sign Out", "AdminSignOut", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Questions", "ModifyQuestions", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                             <li>@Html.ActionLink("Profiles", "profilesData", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("AddProfiles", "AddProfilesData", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Add Profiles", "AddProfilesData", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                         }
                         else
                         {
-                            <li>@Html.ActionLink("Login1", "AdminLogin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Login", "AdminLogin", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                         }
                     }
                 </ul>
