@@ -252,6 +252,7 @@
     <Content Include="Views\Admin\AdminContact.cshtml" />
     <Content Include="Views\Admin\profilesData.cshtml" />
     <Content Include="Views\Admin\AddProfilesData.cshtml" />
+    <Content Include="Views\Admin\ModifyQuestions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

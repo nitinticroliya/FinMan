@@ -95,5 +95,11 @@ namespace fin.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("AdminLogin");
         }
+
+        public ActionResult ModifyQuestions()
+        {
+
+            return View();
+        }
     }
 }
