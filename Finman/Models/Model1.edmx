@@ -43,10 +43,11 @@
         </EntityType>
         <EntityType Name="profilesData">
           <Key>
-            <PropertyRef Name="profiles" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="profiles" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="value" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="retirementPlansSuggested">
           <Key>
@@ -118,16 +119,9 @@
           <EntitySet Name="AdminLogins" EntityType="Self.AdminLogin" />
           <EntitySet Name="investmentPlansSuggesteds" EntityType="Self.investmentPlansSuggested" />
           <EntitySet Name="Logins" EntityType="Self.Login" />
-          <EntitySet Name="profilesDatas" EntityType="FinManModel.profilesData" />
           <EntitySet Name="retirementPlansSuggesteds" EntityType="FinManModel.retirementPlansSuggested" />
+          <EntitySet Name="profilesDatas" EntityType="FinManModel.profilesData" />
         </EntityContainer>
-        <EntityType Name="profilesData">
-          <Key>
-            <PropertyRef Name="profiles" />
-          </Key>
-          <Property Name="profiles" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="value" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="retirementPlansSuggested">
           <Key>
             <PropertyRef Name="Id" />
@@ -146,6 +140,14 @@
           <Property Name="Fd" Type="Int32" />
           <Property Name="Mf" Type="Int32" />
           <Property Name="Equity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="profilesData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="profiles" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -192,14 +194,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="profilesDatas">
-            <EntityTypeMapping TypeName="FinManModel.profilesData">
-              <MappingFragment StoreEntitySet="profilesData">
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="profiles" ColumnName="profiles" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="retirementPlansSuggesteds">
             <EntityTypeMapping TypeName="FinManModel.retirementPlansSuggested">
               <MappingFragment StoreEntitySet="retirementPlansSuggested">
@@ -217,6 +211,15 @@
                 <ScalarProperty Name="MonthlyExpenses" ColumnName="MonthlyExpenses" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profilesDatas">
+            <EntityTypeMapping TypeName="FinManModel.profilesData">
+              <MappingFragment StoreEntitySet="profilesData">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="profiles" ColumnName="profiles" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

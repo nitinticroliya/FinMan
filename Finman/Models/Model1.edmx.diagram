@@ -8,8 +8,8 @@
         <EntityTypeShape EntityType="FinManModel.AdminLogin" Width="1.5" PointX="0.5" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="FinManModel.investmentPlansSuggested" Width="1.5" PointX="2.375" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FinManModel.Login" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinManModel.profilesData" Width="1.5" PointX="2.25" PointY="5" />
         <EntityTypeShape EntityType="FinManModel.retirementPlansSuggested" Width="1.5" PointX="4.125" PointY="0.5" />
+        <EntityTypeShape EntityType="FinManModel.profilesData" Width="1.5" PointX="2.75" PointY="5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

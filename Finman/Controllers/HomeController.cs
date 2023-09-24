@@ -22,15 +22,14 @@ namespace Finman.Controllers
         }
 
 
-        [AllowAnonymous]
+       /* [AllowAnonymous]*/
         public ActionResult Index()
         {
             return View();
         }
 
         
-
-        [AllowAnonymous]
+        /*[AllowAnonymous]*/
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

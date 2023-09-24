@@ -248,6 +248,10 @@
     <Content Include="Views\Account\InvestmentForm.cshtml" />
     <Content Include="Views\Account\InvestmentPlansSuggested.cshtml" />
     <Content Include="Views\Account\RetirementForm.cshtml" />
+    <Content Include="Views\Admin\AdminHome.cshtml" />
+    <Content Include="Views\Admin\AdminContact.cshtml" />
+    <Content Include="Views\Admin\profilesData.cshtml" />
+    <Content Include="Views\Admin\AddProfilesData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

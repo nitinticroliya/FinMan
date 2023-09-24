@@ -1,0 +1,33 @@
+﻿@model List<Finman.Models.profilesData>
+
+@{
+    ViewBag.Title = "profilesData";
+    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+
+<h2>Profiles Data</h2>
+
+
+<a href="@Url.Action("AddProfilesData")" class="btn btn-info">Add Profile</a>
+<table class="table table-hover">
+    <tr>
+        <th>Profiles</th>
+        <th>Values</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var profile in Model)
+    {
+        <tr>
+            <td>@profile.profiles</td>
+            `
+            <td>@profile.value</td>
+            <td>
+                <a href="@Url.Action("AddProfilesData", new { profile.Id, profile.profiles, profile.value})" class="btn btn-success">Edit</a>
+                <a href="@Url.Action("Delete", new {profile.Id})" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

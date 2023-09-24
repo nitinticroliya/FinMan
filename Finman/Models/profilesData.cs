@@ -16,5 +16,6 @@ namespace Finman.Models
     {
         public string profiles { get; set; }
         public int value { get; set; }
+        public int Id { get; set; }
     }
 }
