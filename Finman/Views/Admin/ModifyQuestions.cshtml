@@ -1,8 +1,8 @@
-﻿@model List<Finman.Models.Question>
+﻿@*@model List<Finman.Models.Questions>*@
 @{
     ViewBag.Title = "ModifyQuestions";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    var ques = ViewData["Question"] as List<Finman.Models.Question>;
+    var ques = ViewData["Question"] as List<Finman.Models.Questions>;
 
 }
 
@@ -11,7 +11,7 @@
 <br />
 
 <a href="@Url.Action("AddQuestion")" class="btn btn-info">Add Question</a>
-<a href="@Url.Action("AddOption")" class="btn btn-info">Modify Option</a>
+<a href="@Url.Action("AddOption")" class="btn btn-info">Add Option</a>
 
 <table class="table table-hover">
     <tr>
@@ -28,7 +28,7 @@
             <td>@question.NoOfOptions</td>
             <td>
                 <a href="@Url.Action("AddQuestion", new { question.Id, question.QuestionName, question.NoOfOptions})" class="btn btn-success">Edit</a>
-                <a href="@Url.Action("Delete", new {question.Id})" class="btn btn-danger">Delete</a>
+                <a href="@Url.Action("DeleteQuestion", new {question.Id})" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     }

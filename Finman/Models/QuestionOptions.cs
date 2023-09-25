@@ -12,10 +12,12 @@ namespace Finman.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Question
+    public partial class QuestionOptions
     {
         public int Id { get; set; }
-        public string QuestionName { get; set; }
-        public string NoOfOptions { get; set; }
+        public string QuestionId { get; set; }
+        public string OptionId { get; set; }
+        public string Option { get; set; }
+        public string Weightage { get; set; }
     }
 }

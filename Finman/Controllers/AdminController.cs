@@ -75,7 +75,18 @@ namespace fin.Controllers
             return View("profilesData", list);
 
         }
-        
+        public ActionResult DeleteQuestion(int Id)
+        {
+            var res = entity.Questionss.Where(x => x.Id == Id).First();
+            entity.Questionss.Remove(res);
+            entity.SaveChanges();
+
+            var list = entity.Questionss.ToList();
+            return RedirectToAction("ModifyQuestions");
+           /* return View("ModifyQuestions", list);*/
+
+        }
+
 
         [HttpPost]
         public ActionResult AdminLogin(AdminLogin credentials)
@@ -98,28 +109,34 @@ namespace fin.Controllers
 
         public ActionResult ModifyQuestions()
         {
-            List<Question> questions= entity.Questions.ToList();
+            /*List<Questions> questions= entity.Questionss.ToList();
             ViewData["Question"] = questions;
 
-            return View();
+            return View();*/
+
+            var res = entity.Questionss.ToList();
+            ViewData["Question"] = res;
+            Debug.WriteLine("Hi"+res.Count);
+            return View(res);
         }
         public ActionResult AddQuestion()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult AddQuestion(Question question)
+        public ActionResult AddQuestion(Questions question)
         {
-            if (question.Id == 0)
-            {
-                entity.Questions.Add(question);
+            /*if (question.Id == 0)
+            {*/
+                Debug.WriteLine(question.QuestionName + question.NoOfOptions);
+                entity.Questionss.Add(question);
                 entity.SaveChanges();
-            }
+            /*}
             else
             {
                 entity.Entry(question).State = EntityState.Modified;
                 entity.SaveChanges();
-            }
+            }*/
             return RedirectToAction("ModifyQuestions");
         }
         public ActionResult AddOption()

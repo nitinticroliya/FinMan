@@ -54,17 +54,17 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="QuestionId" Type="nchar" MaxLength="10" />
+          <Property Name="QuestionId" Type="varchar" MaxLength="100" />
           <Property Name="OptionId" Type="nchar" MaxLength="10" />
-          <Property Name="Option" Type="nchar" MaxLength="10" />
-          <Property Name="Weightage" Type="nchar" MaxLength="10" />
+          <Property Name="Option" Type="varchar" MaxLength="100" />
+          <Property Name="Weightage" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="Questions">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="QuestionName" Type="nchar" MaxLength="10" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionName" Type="varchar" MaxLength="100" />
           <Property Name="NoOfOptions" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="retirementPlansSuggested">
@@ -141,9 +141,9 @@
           <EntitySet Name="Logins" EntityType="Self.Login" />
           <EntitySet Name="retirementPlansSuggesteds" EntityType="FinManModel.retirementPlansSuggested" />
           <EntitySet Name="profilesDatas" EntityType="FinManModel.profilesData" />
-          <EntitySet Name="Questions" EntityType="FinManModel.Question" />
-          <EntitySet Name="QuestionOptions" EntityType="FinManModel.QuestionOption" />
-        </EntityContainer>
+          <EntitySet Name="QuestionOptions1" EntityType="FinManModel.QuestionOptions" />
+          <EntitySet Name="Questions1" EntityType="FinManModel.Questions" />
+          </EntityContainer>
         <EntityType Name="retirementPlansSuggested">
           <Key>
             <PropertyRef Name="Id" />
@@ -171,25 +171,25 @@
           <Property Name="value" Type="Int32" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="Question">
+        <EntityType Name="QuestionOptions">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="QuestionName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="QuestionId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OptionId" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Option" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Weightage" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NoOfOptions" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
-        <EntityType Name="QuestionOption">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="QuestionId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="OptionId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Option" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Weightage" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -263,17 +263,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Questions">
-            <EntityTypeMapping TypeName="FinManModel.Question">
-              <MappingFragment StoreEntitySet="Questions">
-                <ScalarProperty Name="NoOfOptions" ColumnName="NoOfOptions" />
-                <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="QuestionOptions">
-            <EntityTypeMapping TypeName="FinManModel.QuestionOption">
+          <EntitySetMapping Name="QuestionOptions1">
+            <EntityTypeMapping TypeName="FinManModel.QuestionOptions">
               <MappingFragment StoreEntitySet="QuestionOptions">
                 <ScalarProperty Name="Weightage" ColumnName="Weightage" />
                 <ScalarProperty Name="Option" ColumnName="Option" />
@@ -283,7 +274,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Questions1">
+            <EntityTypeMapping TypeName="FinManModel.Questions">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="NoOfOptions" ColumnName="NoOfOptions" />
+                <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

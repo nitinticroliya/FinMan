@@ -30,7 +30,7 @@ namespace Finman.Models
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<retirementPlansSuggested> retirementPlansSuggesteds { get; set; }
         public virtual DbSet<profilesData> profilesDatas { get; set; }
-        public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
+        public virtual DbSet<QuestionOptions> QuestionOptionss { get; set; }
+        public virtual DbSet<Questions> Questionss { get; set; }
     }
 }
